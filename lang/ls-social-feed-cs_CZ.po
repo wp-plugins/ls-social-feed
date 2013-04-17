@@ -1,0 +1,230 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: LS Social Feed v1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-04-16 16:31:01+0000\n"
+"Last-Translator: Ladislav Soukup <ladislav.soukup@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%100/10==1 ? 2 : n%10==1 ? 0 : (n+9)%10>3 ? 2 : 1;\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: ls-social-feed.php:68
+#@ ls_social_feed
+msgid "If You like this plugin, please donate and support development. Thank You :)"
+msgstr "Pokud se vám plugin líbí, prosím podpořte vývoj malou \"dotací\". Děkuji :)"
+
+#: ls-social-feed.php:70
+#@ ls_social_feed
+msgid "More free plugins..."
+msgstr "Další pluginy zdarma..."
+
+#: ls-social-feed.php:71
+#@ ls_social_feed
+msgid "More projects - GIT"
+msgstr "Další projekty - GIT"
+
+#: __admin.php:36
+#@ ls_social_feed
+msgid "Settings"
+msgstr "Nastavení"
+
+#: __admin.php:66
+#@ ls_social_feed
+msgid "CAT"
+msgstr ""
+
+#: __admin.php:71
+#@ ls_social_feed
+msgid "item"
+msgstr ""
+
+#: __admin.php:87
+#@ ls_social_feed
+msgid "about"
+msgstr ""
+
+#: options/fields/color_gradient/field_color_gradient.php:35
+#@ nhp-opts
+msgid "From:"
+msgstr ""
+
+#: options/fields/color_gradient/field_color_gradient.php:38
+#@ nhp-opts
+msgid " To:"
+msgstr ""
+
+#: options/fields/google_webfonts/field_google_webfonts.php:42
+#@ nhp-opts
+msgid "The fonts provided below are free to use custom fonts from the <a href=\"http://www.google.com/webfonts\" target=\"_blank\">Google Web Fonts directory</a>.<br/>Please <a href=\"http://www.google.com/webfonts\" target=\"_blank\">browse the directory</a> to preview a font, then select your choice below."
+msgstr ""
+
+#: options/fields/multi_text/field_multi_text.php:39
+#: options/fields/multi_text/field_multi_text.php:46
+#: options/fields/multi_text/field_multi_text.php:50
+#@ nhp-opts
+msgid "Remove"
+msgstr ""
+
+#: options/fields/multi_text/field_multi_text.php:54
+#@ nhp-opts
+msgid "Add More"
+msgstr ""
+
+#: options/fields/upload/field_upload.php:39
+#@ nhp-opts
+msgid "Browse"
+msgstr ""
+
+#: options/fields/upload/field_upload.php:40
+#@ nhp-opts
+msgid "Remove Upload"
+msgstr ""
+
+#: options/options.php:49
+#: options/options.php:51
+#@ nhp-opts
+msgid "Options"
+msgstr ""
+
+#: options/options.php:247
+#: options/options.php:248
+#: options/options.php:681
+#@ nhp-opts
+msgid "Import / Export"
+msgstr ""
+
+#: options/options.php:274
+#: options/options.php:275
+#: options/options.php:700
+#: options/options.php:782
+#@ nhp-opts
+msgid "Dev Mode Info"
+msgstr ""
+
+#: options/options.php:330
+#@ nhp-opts
+msgid "Are you sure? Resetting will loose all custom values."
+msgstr ""
+
+#: options/options.php:647
+#: options/options.php:807
+#@ nhp-opts
+msgid "Reset to Defaults"
+msgstr ""
+
+#: options/options.php:653
+#@ nhp-opts
+msgid "<strong>Settings Imported!</strong>"
+msgstr ""
+
+#: options/options.php:655
+#@ nhp-opts
+msgid "<strong>Settings Saved!</strong>"
+msgstr ""
+
+#: options/options.php:659
+#@ nhp-opts
+msgid "<strong>Settings have changed!, you should save them!</strong>"
+msgstr "<strong>Nastavení se změnilo. Nezapomeňte změny uložit!</strong>"
+
+#: options/options.php:660
+#@ nhp-opts
+msgid "<strong><span></span> error(s) were found!</strong>"
+msgstr ""
+
+#: options/options.php:662
+#@ nhp-opts
+msgid "<strong><span></span> warning(s) were found!</strong>"
+msgstr ""
+
+#: options/options.php:718
+#@ nhp-opts
+msgid "Import / Export Options"
+msgstr ""
+
+#: options/options.php:720
+#@ nhp-opts
+msgid "Import Options"
+msgstr ""
+
+#: options/options.php:728
+#@ nhp-opts
+msgid "Input your backup file below and hit Import to restore your sites options from a backup."
+msgstr ""
+
+#: options/options.php:741
+#@ nhp-opts
+msgid "Input the URL to another sites options set and hit Import to load the options from that site."
+msgstr ""
+
+#: options/options.php:751
+#@ nhp-opts
+msgid "Import"
+msgstr ""
+
+#: options/options.php:751
+#@ nhp-opts
+msgid "WARNING! This will overwrite any existing options, please proceed with caution!"
+msgstr ""
+
+#: options/options.php:754
+#@ nhp-opts
+msgid "Export Options"
+msgstr ""
+
+#: options/options.php:756
+#@ nhp-opts
+msgid "Here you can copy/download your themes current option settings. Keep this safe as you can use it as a backup should anything go wrong. Or you can use it to restore your settings on this site (or any other site). You also have the handy option to copy the link to yours sites settings. Which you can then use to duplicate on another site"
+msgstr ""
+
+#: options/validation/color/validation_color.php:15
+#@ nhp-opts
+msgid "This field must be a valid color value."
+msgstr ""
+
+#: options/validation/comma_numeric/validation_comma_numeric.php:15
+#@ nhp-opts
+msgid "You must provide a comma seperated list of numerical values for this option."
+msgstr ""
+
+#: options/validation/date/validation_date.php:15
+#@ nhp-opts
+msgid "This field must be a valid date."
+msgstr ""
+
+#: options/validation/email/validation_email.php:15
+#@ nhp-opts
+msgid "You must provide a valid email for this option."
+msgstr ""
+
+#: options/validation/no_html/validation_no_html.php:15
+#@ nhp-opts
+msgid "You must not enter any HTML in this field, all HTML tags have been removed."
+msgstr ""
+
+#: options/validation/no_special_chars/validation_no_special_chars.php:15
+#@ nhp-opts
+msgid "You must not enter any special characters in this field, all special characters have been removed."
+msgstr ""
+
+#: options/validation/numeric/validation_numeric.php:15
+#@ nhp-opts
+msgid "You must provide a numerical value for this option."
+msgstr ""
+
+#: options/validation/url/validation_url.php:15
+#@ nhp-opts
+msgid "You must provide a valid URL for this option."
+msgstr ""
+
