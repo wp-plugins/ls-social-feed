@@ -1,10 +1,10 @@
 === LS Social Feed ===
 Contributors: ladislav.soukup@gmail.com
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKTGSXPFWKG&lc=CZ&item_name=Ladislav%20Soukup&item_number=LS%20Social%20Feed&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
-Tags: 
+Tags: Social Feed, Facebook, Twiter, Google+, aggregate, shortcode
 Requires at least: 3.3.1
 Tested up to: 3.5
-Stable tag: 0.5
+Stable tag: 0.5.1
 
 Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed.
 

@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: LS Social Feed
-Plugin URI: http://git.ladasoukup.cz/ls_social_feed
+Plugin URI: http://git.ladasoukup.cz/ls-social-feed/
 Description: Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed.
-Version: 0.5
+Version: 0.5.1
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
