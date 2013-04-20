@@ -20,6 +20,7 @@ $lssf_options_panel->TabsListing( array(
 	'links' => array(
 		'lssf_opt_fb' =>  __( 'Facebook', 'ls_social_feed' ),
 		'lssf_opt_gplus' =>  __( 'Google+', 'ls_social_feed' ),
+		'lssf_opt_templates' =>  __( 'Templates', 'ls_social_feed' ),
 		'lssf_about' => __( 'About this plugin', 'ls_social_feed' ),
 		'lssf_importexport' => __( 'Import/Export settings', 'ls_social_feed' )
 	)
@@ -28,20 +29,57 @@ $lssf_options_panel->TabsListing( array(
 $lssf_options_panel->OpenTab( 'lssf_opt_fb' );
 $lssf_options_panel->Title( __("Facebook", "ls_social_feed") );
 $lssf_options_panel->addParagraph( __("You need an active Facebook App to fetch Facebook feed.", "ls_social_feed") );
-$lssf_options_panel->addText( 'fb_appid', array( 'name'=> __( 'App ID', 'ls_social_feed' ), 'std'=> 'text', 'desc' => '' ) );
-$lssf_options_panel->addText( 'fb_appsecret', array( 'name'=> __( 'App Secret', 'ls_social_feed' ), 'std'=> 'text', 'desc' => '' ) );
+$lssf_options_panel->addText( 'fb_appid', array( 'name'=> __( 'App ID', 'ls_social_feed' ), 'std'=> '', 'desc' => '' ) );
+$lssf_options_panel->addText( 'fb_appsecret', array( 'name'=> __( 'App Secret', 'ls_social_feed' ), 'std'=> '', 'desc' => '' ) );
 $lssf_options_panel->CloseTab();
 
 $lssf_options_panel->OpenTab( 'lssf_opt_gplus' );
 $lssf_options_panel->Title( __("Google+", "ls_social_feed") );
-$lssf_options_panel->addParagraph( __("You need an active Facebook App to fetch Facebook feed.", "ls_social_feed") );
-$lssf_options_panel->addText( 'gplus_key', array( 'name'=> __( 'Google+ API Key', 'ls_social_feed' ), 'std'=> 'text', 'desc' => '' ) );
+$lssf_options_panel->addParagraph( __("", "ls_social_feed") );
+$lssf_options_panel->addText( 'gplus_key', array( 'name'=> __( 'Google+ API Key', 'ls_social_feed' ), 'std'=> '', 'desc' => '' ) );
 $lssf_options_panel->CloseTab();
 
+$lssf_def_template_path = plugin_dir_path( __FILE__ ) . '/tpl-default.html';
+$lssf_def_template = @file_get_contents( $lssf_def_template_path );
+$lssf_options_panel->OpenTab( 'lssf_opt_templates' );
+$lssf_options_panel->Title( __("Templates", "ls_social_feed") );
+$lssf_options_panel->addParagraph( __("", "ls_social_feed") );
+$lssf_options_panel->addCode( 'main_template', array( 'name' => __( 'Global Template (HTML)', 'ls_social_feed'), 'syntax' => 'html', 'std' => $lssf_def_template, 'desc' => __( '','ls_social_feed' ) ) );
+$lssf_options_panel->CloseTab();
 
 $lssf_options_panel->OpenTab( 'lssf_about' );
-$lssf_options_panel->Title( __( 'About this plugin', 'ls_social_feed' ) );
+$lssf_options_panel->Title( __( 'Shortcodes - help', 'ls_social_feed' ) );
 ob_start() ?>
+	<div>
+		<h3><?php _e( 'Aggregated feed from all supported networks.', 'ls_social_feed' ); ?></h3>
+		<pre>[lssf facebook="LadaSoukup" twitter="LadaSoukup" gplus="101145411178741720361" items=5]</pre>
+		<div></div>
+	</div>
+	<div>&nbsp;</div>
+	
+	<div>
+		<h3><?php _e( 'Facebook', 'ls_social_feed' ); ?></h3>
+		<pre>[lssf_facebook id="LadaSoukup" items=2]</pre>
+		<div></div>
+	</div>
+	<div>&nbsp;</div>
+	
+	<div>
+		<h3><?php _e( 'Twitter', 'ls_social_feed' ); ?></h3>
+		<pre>[lssf_twitter id="LadaSoukup" items=4]</pre>
+		<div></div>
+	</div>
+	<div>&nbsp;</div>
+	
+	<div>
+		<h3><?php _e( 'Google+', 'ls_social_feed' ); ?></h3>
+		<pre>[lssf_gplus id="101145411178741720361" items=2]</pre>
+		<div></div>
+	</div>
+	<div>&nbsp;</div>
+	
+	<hr/>
+	
 	<div>
 		<?php _e( 'If You like this plugin, please donate and support development. Thank You :)', 'ls_social_feed' ); ?>
 	</div>

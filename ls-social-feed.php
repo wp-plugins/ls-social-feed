@@ -3,7 +3,7 @@
 Plugin Name: LS Social Feed
 Plugin URI: http://git.ladasoukup.cz/ls-social-feed/
 Description: Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed.
-Version: 0.5.1
+Version: 0.5.2
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -49,12 +49,11 @@ class ls_social_feed {
 		load_plugin_textdomain( 'ls_social_feed', false, $this->plugin_path . '/lang' );
 		
 		/* admin options */
-		require_once( $this->plugin_path . '__admin.php' );
+		require_once( $this->plugin_path . 'admin.php' );
 		
 		/* load CFG */
 		$this->CFG = get_option( 'ls_social_feed' );
 		$this->gmtOffset = get_option('gmt_offset') * 3600;
-		// if ( $this->debug ) { echo '<hr/>'; echo $url; echo '<br/><pre>'; print_r( $this->CFG ); echo '</pre><hr/>'; }
 		
 		// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 		// register_activation_hook( __FILE__, array( $this, 'activate' ) );
@@ -293,40 +292,34 @@ class ls_social_feed {
 	
 	/* Render feed */
 	public function renderSocialFeed( $data, $social_network ) {
-		$out = '';
+		$html = '';
 		
 		if ( is_array( $data['feed'] ) ) {
 			foreach ( $data['feed'] as $item ) {
+				$out = $this->CFG['main_template'];
+				
 				$class = $social_network;
-				if ( $social_network == 'mixed' ) { $class .= ' ' . $item['_type']; }
+				$social_network_title = $social_network;
+				if ( $social_network == 'mixed' ) { $class .= ' ' . $item['_type']; $social_network_title = $item['_type']; }
+				if ($social_network == 'mixed') { $out = str_replace( '%%meta_author%%', $data['user'][$item['_type']]['title'], $out ); }
+				else { $out = str_replace( '%%meta_author%%', $data['user']['title'], $out ); }
 				
-				$out .= '<div class="lsSocialFeedItemContainer '.$class.'">';
-				if ( !empty( $item['attachment']['image'] ) ) {
-					$out .= '<img class="lsSocialFeedItem_image" src="' . $item['attachment']['image'] . '" />';
-				}
-				$out .= '<div class="lsSocialFeedItem_content">' . $item['content'] . '</div>';
-				$out .= '<div class="lsSocialFeedItem_clear"></div>';
-				$out .= '<div class="lsSocialFeedItem_meta">';
-				$out .= '<div class="lsSocialFeedItem_network '.$class.'">' . $class . '</div>';
-				if ($social_network == 'mixed') { $out .= '<span class="lsSocialFeedItem_author">' . $data['user'][$item['_type']]['title'] . '</span>'; }
-				else { $out .= '<span class="lsSocialFeedItem_author">' . $data['user']['title'] . '</span>'; }
-				$out .= '<span class="lsSocialFeedItem_date">' . $item['date'] . '</span>';
-				$out .= '<span class="lsSocialFeedItem_time">' . $item['time'] . '</span>';
-				$out .= '</div>';
+				$out = str_replace( '\"', '"', $out ); /* fix for " char */
 				
-				if ( !empty( $item['url'] ) ) {
-					$out .= '<a class="lsSocialFeedItem_link" href="' . $item['url'] . '" target="_blank">';
-					$out .= __( 'read more...', 'ls_social_feed' );
-					$out .= '</a>';
-				}
+				$out = str_replace( '%%feed_network%%', $social_network_title, $out );
+				$out = str_replace( '%%class%%', $class, $out );
+				$out = str_replace( '%%item_image%%', $item['attachment']['image'], $out );
+				$out = str_replace( '%%item_text%%', $item['content'], $out );
+				$out = str_replace( '%%meta_date%%', $item['date'], $out );
+				$out = str_replace( '%%meta_time%%', $item['time'], $out );
+				$out = str_replace( '%%feed_url%%', $item['url'], $out );
+				$out = str_replace( '%%str_readmore%%', __( 'read more...', 'ls_social_feed' ), $out );
 				
-				$out .= '</div> <!-- // .lsSocialFeedItemContainer -->';
-				$out .= '<div class="lsSocialFeedItem_clear"></div>';
-				
+				$html .= $out;
 			}
 		}
 		
-		return $out;
+		return $html;
 	}
 	
 } // end class
