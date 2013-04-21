@@ -3,7 +3,7 @@
 Plugin Name: LS Social Feed
 Plugin URI: http://git.ladasoukup.cz/ls-social-feed/
 Description: Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed.
-Version: 0.5.3
+Version: 0.5.4
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -290,6 +290,18 @@ class ls_social_feed {
 		return( $data );
 	}
 	
+	private function textTruncate( $string, $limit, $break=" ", $pad="..." ) {
+		// return with no change if string is shorter than $limit
+		if(strlen($string) <= $limit) return $string;
+		// is $break present between $limit and the end of the string?
+		if( false !== ( $breakpoint = strpos( $string, $break, $limit ) ) ) {
+			if($breakpoint < strlen($string) - 1) {
+				$string = substr($string, 0, $breakpoint) . $pad;
+			}
+		}
+		return $string;
+	}
+	
 	/* Render feed */
 	public function renderSocialFeed( $data, $social_network ) {
 		$html = '';
@@ -326,7 +338,7 @@ class ls_social_feed {
 				$out = str_replace( '%%att_image%%', $item['attachment']['image'], $out );
 				
 				// ===== regex - shortcodes =====
-				// [isset %rule%]%value%[/isset]
+				// [isset %%variable%%]%%value%%[/isset]
 				while( 1 == 1 ) {
 					preg_match_all('~\[isset([^\[\]]*)]([^\[\]]+)\[/isset]~', $out, $result);  
 					$replace = ''; $rule = trim( $result[1][0] );
@@ -336,6 +348,18 @@ class ls_social_feed {
 				}
 				$out = str_replace( '[isset ][/isset]', '', $out ); // cleanup
 				// -end- [isset %rule%]%value%[/isset]
+				
+				// [truncate %chars%]%value%[/isset]
+				while( 1 == 1 ) {
+					preg_match_all('~\[truncate([^\[\]]*)]([^\[\]]+)\[/truncate]~', $out, $result);  
+					$replace = '';
+					$chars = trim( $result[1][0] ); if ( $chars < 1 ) $chars = 140;
+					
+					$replace = $this->textTruncate( $result[2][0], $chars, $break=" ", $pad="..." );
+					$out = str_replace( $result[0][0], $replace, $out );
+					if( empty( $result[0] ) ) break;
+				}
+				// -end- [truncate %chars%]%value%[/isset]
 				
 				
 				

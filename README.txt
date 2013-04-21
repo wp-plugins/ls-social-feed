@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKT
 Tags: Social Feed, Facebook, Twiter, Google+, aggregate, shortcode
 Requires at least: 3.3.1
 Tested up to: 3.5
-Stable tag: 0.5.3
+Stable tag: 0.5.4
 
 Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed.
 
@@ -30,8 +30,9 @@ In this version, several features are missing... but the code should be stable.
 = Translatable =
 All text can be translated using standart language files, text domain is: "ls_social_feed".
 
-Included translations:
+= Included translations: =
 - English (default)
+
 - Czech
 
 == Installation ==
@@ -47,6 +48,9 @@ No more settings are needed.
 1. Plugin settings
 
 == Changelog ==
+
+= 0.5.4 =
+truncate shortcode
 
 = 0.5.3 =
 template tags shortcode [isset]
