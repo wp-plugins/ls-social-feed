@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKT
 Tags: Social Feed, Facebook, Twiter, Google+, aggregate, shortcode
 Requires at least: 3.3.1
 Tested up to: 3.5
-Stable tag: 0.5.4
+Stable tag: 0.5.5
 
 Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed.
 
@@ -48,6 +48,10 @@ No more settings are needed.
 1. Plugin settings
 
 == Changelog ==
+
+= 0.5.5 =
+renamed %%fee_url%% => %%item_url%%
+addedd %%debug%%
 
 = 0.5.4 =
 truncate shortcode

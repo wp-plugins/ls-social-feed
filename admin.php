@@ -56,7 +56,7 @@ $templates_help .= '<div><b>%%feed_network%%</b> - ' . __("Network name", "ls_so
 $templates_help .= '<div><b>%%class%%</b> - ' . __("Class name constructed from network type including 'mixed' for aggregated feed items", "ls_social_feed") . '</div>';
 $templates_help .= '<div><b>%%att_type%%</b> - ' . __("Attachement - type", "ls_social_feed") . '</div>';
 $templates_help .= '<div><b>%%att_image%%</b> - ' . __("Attachement - image url address", "ls_social_feed") . '</div>';
-$templates_help .= '<div><b>%%feed_url%%</b> - ' . __("Url to read more or url to source post", "ls_social_feed") . '</div>';
+$templates_help .= '<div><b>%%item_url%%</b> - ' . __("Url to read more or url to source post", "ls_social_feed") . '</div>';
 $templates_help .= '<div><b>%%str_readmore%%</b> - ' . __("Read more text via WordPress translatable text", "ls_social_feed") . '</div>';
 
 $templates_help .= '<h3>' . __("Template Shortcodes", "ls_social_feed") . '</h3>';

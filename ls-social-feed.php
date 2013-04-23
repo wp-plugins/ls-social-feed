@@ -3,7 +3,7 @@
 Plugin Name: LS Social Feed
 Plugin URI: http://git.ladasoukup.cz/ls-social-feed/
 Description: Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed.
-Version: 0.5.4
+Version: 0.5.5
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -291,9 +291,7 @@ class ls_social_feed {
 	}
 	
 	private function textTruncate( $string, $limit, $break=" ", $pad="..." ) {
-		// return with no change if string is shorter than $limit
 		if(strlen($string) <= $limit) return $string;
-		// is $break present between $limit and the end of the string?
 		if( false !== ( $breakpoint = strpos( $string, $break, $limit ) ) ) {
 			if($breakpoint < strlen($string) - 1) {
 				$string = substr($string, 0, $breakpoint) . $pad;
@@ -331,11 +329,14 @@ class ls_social_feed {
 				$out = str_replace( '%%item_text%%', $item['content'], $out );
 				$out = str_replace( '%%meta_date%%', $item['date'], $out );
 				$out = str_replace( '%%meta_time%%', $item['time'], $out );
-				$out = str_replace( '%%feed_url%%', $item['url'], $out );
+				$out = str_replace( '%%item_url%%', $item['url'], $out );
 				$out = str_replace( '%%str_readmore%%', __( 'read more...', 'ls_social_feed' ), $out );
 				
 				$out = str_replace( '%%att_type%%', $item['attachment']['type'], $out );
 				$out = str_replace( '%%att_image%%', $item['attachment']['image'], $out );
+				
+				ob_start(); print_r( $item ); $debug = ob_get_clean();
+				$out = str_replace( '%%debug%%', $debug, $out );
 				
 				// ===== regex - shortcodes =====
 				// [isset %%variable%%]%%value%%[/isset]
