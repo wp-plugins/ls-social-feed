@@ -61,6 +61,7 @@ $templates_help .= '<div><b>%%str_readmore%%</b> - ' . __("Read more text via Wo
 
 $templates_help .= '<h3>' . __("Template Shortcodes", "ls_social_feed") . '</h3>';
 $templates_help .= '<div><b>[isset %%variable%%]content[/isset]</b><br/>- ' . __("If %%variable%% is not empty, content will be displayed (all above variables can be used as %%variable%% or content)", "ls_social_feed") . '</div><div>&nbsp;</div>';
+$templates_help .= '<div><b>[isempty %%variable%%]content[/isempty]</b><br/>- ' . __("If %%variable%% is empty, content will be displayed (all above variables can be used as %%variable%% or content)", "ls_social_feed") . '</div><div>&nbsp;</div>';
 $templates_help .= '<div><b>[truncate %%chars%%]content[/truncate]</b><br/>- ' . __("Truncate content to number of %%chars%%. Truncate will not break words.", "ls_social_feed") . '</div><div>&nbsp;</div>';
 
 $lssf_options_panel->addParagraph( $templates_help );

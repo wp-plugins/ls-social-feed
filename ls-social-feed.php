@@ -3,7 +3,7 @@
 Plugin Name: LS Social Feed
 Plugin URI: http://git.ladasoukup.cz/ls-social-feed/
 Description: Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed.
-Version: 0.5.5
+Version: 0.5.6
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -348,7 +348,18 @@ class ls_social_feed {
 					if( empty( $result[0] ) ) break;
 				}
 				$out = str_replace( '[isset ][/isset]', '', $out ); // cleanup
-				// -end- [isset %rule%]%value%[/isset]
+				// -end- [isset %%variable%%]%value%[/isset]
+				
+				// [isempty %%variable%%]%%value%%[/isset]
+				while( 1 == 1 ) {
+					preg_match_all('~\[isempty([^\[\]]*)]([^\[\]]+)\[/isempty]~', $out, $result);  
+					$replace = ''; $rule = trim( $result[1][0] );
+					if( empty( $rule ) ) $replace = $result[2][0];
+					$out = str_replace( $result[0][0], $replace, $out );
+					if( empty( $result[0] ) ) break;
+				}
+				$out = str_replace( '[isset ][/isset]', '', $out ); // cleanup
+				// -end- [isempty %%variable%%]%value%[/isset]
 				
 				// [truncate %chars%]%value%[/isset]
 				while( 1 == 1 ) {
@@ -361,6 +372,8 @@ class ls_social_feed {
 					if( empty( $result[0] ) ) break;
 				}
 				// -end- [truncate %chars%]%value%[/isset]
+				
+				
 				
 				
 				

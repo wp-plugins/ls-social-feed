@@ -49,6 +49,9 @@ No more settings are needed.
 
 == Changelog ==
 
+= 0.5.6 =
+template tag shortcode added - [isempty] 
+
 = 0.5.5 =
 renamed %%fee_url%% => %%item_url%%
 addedd %%debug%%
