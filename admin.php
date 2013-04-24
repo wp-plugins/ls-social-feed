@@ -47,18 +47,19 @@ $lssf_options_panel->addCode( 'main_template', array( 'name' => __( 'Global Temp
 
 $templates_help = '<h3>' . __("Template Variables", "ls_social_feed") . '</h3>';
 $templates_help .= '<div><b>%%item_text%%</b> - ' . __("Feed item text", "ls_social_feed") . '</div>';
-$templates_help .= '<div><b>%%meta_author%%</b> - ' . __("Meta data - author", "ls_social_feed") . '</div>';
-$templates_help .= '<div><b>%%meta_avatar%%</b> - ' . __("Meta data - author avatar", "ls_social_feed") . '</div>';
-$templates_help .= '<div><b>%%meta_info%%</b> - ' . __("Meta data - author description", "ls_social_feed") . '</div>';
+$templates_help .= '<div><b>%%item_url%%</b> - ' . __("Url to read more or url to source post", "ls_social_feed") . '</div>';
+$templates_help .= '<div><b>%%att_type%%</b> - ' . __("Attachement - type", "ls_social_feed") . '</div>';
+$templates_help .= '<div><b>%%att_image%%</b> - ' . __("Attachement - image url address", "ls_social_feed") . '</div>';
+$templates_help .= '<div><b>%%meta_author%%</b> - ' . __("Item meta - author", "ls_social_feed") . '</div>';
+$templates_help .= '<div><b>%%meta_avatar%%</b> - ' . __("Item meta - author avatar", "ls_social_feed") . '</div>';
 $templates_help .= '<div><b>%%meta_date%%</b> - ' . __("Meta data - date posted", "ls_social_feed") . '</div>';
 $templates_help .= '<div><b>%%meta_time%%</b> - ' . __("Meta data - time posted", "ls_social_feed") . '</div>';
 $templates_help .= '<div><b>%%feed_network%%</b> - ' . __("Network name", "ls_social_feed") . ' (facebook / twitter / gplus)</div>';
 $templates_help .= '<div><b>%%class%%</b> - ' . __("Class name constructed from network type including 'mixed' for aggregated feed items", "ls_social_feed") . '</div>';
-$templates_help .= '<div><b>%%att_type%%</b> - ' . __("Attachement - type", "ls_social_feed") . '</div>';
-$templates_help .= '<div><b>%%att_image%%</b> - ' . __("Attachement - image url address", "ls_social_feed") . '</div>';
-$templates_help .= '<div><b>%%item_url%%</b> - ' . __("Url to read more or url to source post", "ls_social_feed") . '</div>';
 $templates_help .= '<div><b>%%str_readmore%%</b> - ' . __("Read more text via WordPress translatable text", "ls_social_feed") . '</div>';
-
+$templates_help .= '<div><b>%%feed_author%%</b> - ' . __("Feed meta - author", "ls_social_feed") . '</div>';
+$templates_help .= '<div><b>%%feed_avatar%%</b> - ' . __("Feed meta - author avatar", "ls_social_feed") . '</div>';
+$templates_help .= '<div><b>%%feed_info%%</b> - ' . __("Feed meta - author avatar", "ls_social_feed") . '</div>';
 $templates_help .= '<h3>' . __("Template Shortcodes", "ls_social_feed") . '</h3>';
 $templates_help .= '<div><b>[isset %%variable%%]content[/isset]</b><br/>- ' . __("If %%variable%% is not empty, content will be displayed (all above variables can be used as %%variable%% or content)", "ls_social_feed") . '</div><div>&nbsp;</div>';
 $templates_help .= '<div><b>[isempty %%variable%%]content[/isempty]</b><br/>- ' . __("If %%variable%% is empty, content will be displayed (all above variables can be used as %%variable%% or content)", "ls_social_feed") . '</div><div>&nbsp;</div>';

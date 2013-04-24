@@ -2,8 +2,8 @@
 /*
 Plugin Name: LS Social Feed
 Plugin URI: http://git.ladasoukup.cz/ls-social-feed/
-Description: Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed.
-Version: 0.5.6
+Description: Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed. Full template control!
+Version: 0.6
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -157,7 +157,7 @@ class ls_social_feed {
 		
 		$url = 'https://graph.facebook.com/'. $uid .'/feed/?access_token=' . $FB_token . '&limit=' . $items;
 		$response = $this->getRemoteUrl( $url, $this->cache_expire, false );
-		$json = json_decode( $response['body'], true );  // print_r($json);
+		$json = json_decode( $response['body'], true );  //print_r($json);
 		
 		foreach ( (array)$json['data'] as $item ) {
 			$attachment = array( 'type' => '', 'image' => '' );
@@ -165,6 +165,7 @@ class ls_social_feed {
 				$attachment['type'] = 'photo';
 				$attachment['image'] = $item['picture'];
 			}
+			$isself = true; if ( !empty( $item['to'] ) ) $isself = false;
 			
 			$data['feed'][] = array(
 				'url' => esc_url ( '' . strip_tags( $item['link'] ) ),
@@ -172,10 +173,16 @@ class ls_social_feed {
 				'date' => gmdate( get_option( 'date_format' ), strtotime( $item['created_time'] ) ),
 				'time' => gmdate( get_option( 'time_format' ), strtotime( $item['created_time'] ) ),
 				'timestamp' => strtotime( $item['created_time'] ),
-				'attachment' => $attachment
+				'from' => array(
+					'title' => $item['from']['name'],
+					'photo' => 'http://graph.facebook.com/'. $item['from']['id'] .'/picture?type=large'
+				),
+				'attachment' => $attachment,
+				'is_self' => $isself
 			);
 		}
 		
+		//print_r($data);
 		return( $data );
 	}
 	
@@ -224,13 +231,19 @@ class ls_social_feed {
 				
 			}
 			
+			$isself = false; if ($activities_items['actor']['id'] == $uid) $isself = true;
 			$data['feed'][] = array(
 				'url' => esc_url( strip_tags( $activities_items['url'] ) ),
 				'content' => esc_html(strip_tags(str_replace('<br />', ' ', $activities_items['object']['content'] ))),
 				'date' => gmdate( get_option( 'date_format' ), strtotime( $activities_items['published'] ) ),
 				'time' => gmdate( get_option( 'time_format' ), strtotime( $activities_items['published'] ) ),
 				'timestamp' => strtotime( $activities_items['published'] ),
-				'attachment' => $attachment
+				'from' => array(
+					'title' => $activities_items['actor']['displayName'],
+					'photo' => $activities_items['actor']['image']['url']
+				),
+				'attachment' => $attachment,
+				'is_self' => $isself
 			);
 			
 			if ($userInfoOK === false) {
@@ -245,6 +258,7 @@ class ls_social_feed {
 			}
 		}
 		
+		// print_r($data);
 		return( $data );
 	}
 	
@@ -264,21 +278,28 @@ class ls_social_feed {
 		$json = json_decode( $response['body'], true );  // print_r($json);
 		
 		foreach ( (array) $json as $item ) {
-			$attachment['type'] = 'photo';
-			$attachment['image'] = $item['user']['profile_image_url'];
+			$attachment['type'] = '';
+			$attachment['image'] = '';
+			$isself = false; if ( $item['user']['screen_name'] == $uid ) $isself = true;
+			
 			$data['feed'][] = array(
 				'url' => esc_url ( 'http://twitter.com/' . strip_tags( $item['user']['screen_name'] . '/status/' . $item['id_str'] ) ),
 				'content' => esc_html(strip_tags( $item['text'] )),
 				'date' => gmdate( get_option( 'date_format' ), strtotime( $item['created_at'] ) ),
 				'time' => gmdate( get_option( 'time_format' ), strtotime( $item['created_at'] ) ),
 				'timestamp' => strtotime( $item['created_at'] ),
-				'attachment' => $attachment
+				'from' => array(
+					'title' => $item['user']['screen_name'],
+					'photo' => $item['user']['profile_image_url']
+				),
+				'attachment' => $attachment,
+				'is_self' => $isself
 			);
 			
 			if ($userInfoOK === false) {
-				if ($activities_items['actor']['id'] == $gplus_id) {
+				if ( $item['user']['screen_name'] == $uid ) {
 					$data['user'] = array(
-						'title' => esc_html(strip_tags( $item['user']['name'] )),
+						'title' => esc_html(strip_tags( $item['user']['screen_name'] )),
 						'photo' => $item['user']['profile_image_url'],
 						'slogan' => esc_html(strip_tags( $item['user']['description'] ))
 					);
@@ -287,6 +308,7 @@ class ls_social_feed {
 			}
 		}
 		
+		// print_r($data);
 		return( $data );
 	}
 	
@@ -312,18 +334,10 @@ class ls_social_feed {
 				$social_network_title = $social_network;
 				if ( $social_network == 'mixed' ) { $class .= ' ' . $item['_type']; $social_network_title = $item['_type']; }
 				
-				if ($social_network == 'mixed') {
-					$out = str_replace( '%%meta_author%%', $data['user'][$item['_type']]['title'], $out );
-					$out = str_replace( '%%meta_avatar%%', $data['user'][$item['_type']]['photo'], $out );
-					$out = str_replace( '%%meta_info%%', $data['user'][$item['_type']]['slogan'], $out );
-				}
-				else {
-					$out = str_replace( '%%meta_author%%', $data['user']['title'], $out );
-					$out = str_replace( '%%meta_avatar%%', $data['user']['photo'], $out );
-					$out = str_replace( '%%meta_info%%', $data['user']['slogan'], $out );
-				}
-				
 				$out = str_replace( '\"', '"', $out ); /* fix for " char */
+				
+				$out = str_replace( '%%meta_author%%', $item['from']['author'], $out );
+				$out = str_replace( '%%meta_avatar%%', $item['from']['photo'], $out );
 				$out = str_replace( '%%feed_network%%', $social_network_title, $out );
 				$out = str_replace( '%%class%%', $class, $out );
 				$out = str_replace( '%%item_text%%', $item['content'], $out );
@@ -331,9 +345,19 @@ class ls_social_feed {
 				$out = str_replace( '%%meta_time%%', $item['time'], $out );
 				$out = str_replace( '%%item_url%%', $item['url'], $out );
 				$out = str_replace( '%%str_readmore%%', __( 'read more...', 'ls_social_feed' ), $out );
-				
 				$out = str_replace( '%%att_type%%', $item['attachment']['type'], $out );
 				$out = str_replace( '%%att_image%%', $item['attachment']['image'], $out );
+				
+				if ($social_network == 'mixed') {
+						$out = str_replace( '%%feed_author%%', $data['user'][$item['_type']]['title'], $out );
+						$out = str_replace( '%%feed_avatar%%', $data['user'][$item['_type']]['photo'], $out );
+						$out = str_replace( '%%feed_info%%', $data['user'][$item['_type']]['slogan'], $out );
+				}
+				else {
+						$out = str_replace( '%%feed_author%%', $data['user']['title'], $out );
+						$out = str_replace( '%%feed_avatar%%', $data['user']['photo'], $out );
+						$out = str_replace( '%%feed_info%%', $data['user']['slogan'], $out );
+				}
 				
 				ob_start(); print_r( $item ); $debug = ob_get_clean();
 				$out = str_replace( '%%debug%%', $debug, $out );
@@ -373,14 +397,9 @@ class ls_social_feed {
 				}
 				// -end- [truncate %chars%]%value%[/isset]
 				
-				
-				
-				
-				
 				$html .= $out;
 			}
 		}
-		
 		return $html;
 	}
 	
