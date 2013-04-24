@@ -40,8 +40,8 @@ English, Czech
 1. Upload to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Feed is now updated, you should check it
-
-No more settings are needed.
+4. Now, please, open admin panel (Settings => LS Social Feed) and fill your Facebook App settings (App Id and App Secret), and your Google+ API key
+5. Update feed template and custom CSS
 
 == Screenshots ==
 
