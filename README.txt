@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKT
 Tags: Social Feed, Facebook, Twiter, Google+, aggregate, shortcode, template, full control, customize
 Requires at least: 3.3.1
 Tested up to: 3.5
-Stable tag: 0.6
+Stable tag: 0.6.1
 
 Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed. Full template control!
 
@@ -48,6 +48,9 @@ English, Czech
 1. Plugin settings
 
 == Changelog ==
+= 0.6.1
+- %%meta_author%% fix
+- items with empty content are ignored (until proper fix for FB API inconsistency is done)
 
 = 0.6 =
 - template tags tweaks 
@@ -55,21 +58,20 @@ English, Czech
 - getting ready for future functions 
 
 = 0.5.6 =
-template tag shortcode added - [isempty] 
+- template tag shortcode added - [isempty] 
 
 = 0.5.5 =
-renamed %%feed_url%% => %%item_url%%
-addedd %%debug%%
+- renamed %%feed_url%% => %%item_url%%
+- addedd %%debug%%
 
 = 0.5.4 =
-truncate shortcode
+- truncate shortcode
 
 = 0.5.3 =
-template tags shortcode [isset]
+- template tags shortcode [isset]
 
 = 0.5.2 =
-editable template
+- editable template
 
 = 0.5 =
-first beta version
-
+- first beta version

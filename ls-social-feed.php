@@ -3,7 +3,7 @@
 Plugin Name: LS Social Feed
 Plugin URI: http://git.ladasoukup.cz/ls-social-feed/
 Description: Shortcodes to display social feeds from Facebook, Google+ and Twitter. You can also aggregate these social networks to one feed. Full template control!
-Version: 0.6
+Version: 0.6.1
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -328,76 +328,78 @@ class ls_social_feed {
 		
 		if ( is_array( $data['feed'] ) ) {
 			foreach ( $data['feed'] as $item ) {
-				$out = $this->CFG['main_template'];
-				
-				$class = $social_network;
-				$social_network_title = $social_network;
-				if ( $social_network == 'mixed' ) { $class .= ' ' . $item['_type']; $social_network_title = $item['_type']; }
-				
-				$out = str_replace( '\"', '"', $out ); /* fix for " char */
-				
-				$out = str_replace( '%%meta_author%%', $item['from']['author'], $out );
-				$out = str_replace( '%%meta_avatar%%', $item['from']['photo'], $out );
-				$out = str_replace( '%%feed_network%%', $social_network_title, $out );
-				$out = str_replace( '%%class%%', $class, $out );
-				$out = str_replace( '%%item_text%%', $item['content'], $out );
-				$out = str_replace( '%%meta_date%%', $item['date'], $out );
-				$out = str_replace( '%%meta_time%%', $item['time'], $out );
-				$out = str_replace( '%%item_url%%', $item['url'], $out );
-				$out = str_replace( '%%str_readmore%%', __( 'read more...', 'ls_social_feed' ), $out );
-				$out = str_replace( '%%att_type%%', $item['attachment']['type'], $out );
-				$out = str_replace( '%%att_image%%', $item['attachment']['image'], $out );
-				
-				if ($social_network == 'mixed') {
-						$out = str_replace( '%%feed_author%%', $data['user'][$item['_type']]['title'], $out );
-						$out = str_replace( '%%feed_avatar%%', $data['user'][$item['_type']]['photo'], $out );
-						$out = str_replace( '%%feed_info%%', $data['user'][$item['_type']]['slogan'], $out );
-				}
-				else {
-						$out = str_replace( '%%feed_author%%', $data['user']['title'], $out );
-						$out = str_replace( '%%feed_avatar%%', $data['user']['photo'], $out );
-						$out = str_replace( '%%feed_info%%', $data['user']['slogan'], $out );
-				}
-				
-				ob_start(); print_r( $item ); $debug = ob_get_clean();
-				$out = str_replace( '%%debug%%', $debug, $out );
-				
-				// ===== regex - shortcodes =====
-				// [isset %%variable%%]%%value%%[/isset]
-				while( 1 == 1 ) {
-					preg_match_all('~\[isset([^\[\]]*)]([^\[\]]+)\[/isset]~', $out, $result);  
-					$replace = ''; $rule = trim( $result[1][0] );
-					if( !empty( $rule ) ) $replace = $result[2][0];
-					$out = str_replace( $result[0][0], $replace, $out );
-					if( empty( $result[0] ) ) break;
-				}
-				$out = str_replace( '[isset ][/isset]', '', $out ); // cleanup
-				// -end- [isset %%variable%%]%value%[/isset]
-				
-				// [isempty %%variable%%]%%value%%[/isset]
-				while( 1 == 1 ) {
-					preg_match_all('~\[isempty([^\[\]]*)]([^\[\]]+)\[/isempty]~', $out, $result);  
-					$replace = ''; $rule = trim( $result[1][0] );
-					if( empty( $rule ) ) $replace = $result[2][0];
-					$out = str_replace( $result[0][0], $replace, $out );
-					if( empty( $result[0] ) ) break;
-				}
-				$out = str_replace( '[isset ][/isset]', '', $out ); // cleanup
-				// -end- [isempty %%variable%%]%value%[/isset]
-				
-				// [truncate %chars%]%value%[/isset]
-				while( 1 == 1 ) {
-					preg_match_all('~\[truncate([^\[\]]*)]([^\[\]]+)\[/truncate]~', $out, $result);  
-					$replace = '';
-					$chars = trim( $result[1][0] ); if ( $chars < 1 ) $chars = 140;
+				if ( !empty( $item['content'] ) ) {
+					$out = $this->CFG['main_template'];
 					
-					$replace = $this->textTruncate( $result[2][0], $chars, $break=" ", $pad="..." );
-					$out = str_replace( $result[0][0], $replace, $out );
-					if( empty( $result[0] ) ) break;
-				}
-				// -end- [truncate %chars%]%value%[/isset]
-				
-				$html .= $out;
+					$class = $social_network;
+					$social_network_title = $social_network;
+					if ( $social_network == 'mixed' ) { $class .= ' ' . $item['_type']; $social_network_title = $item['_type']; }
+					
+					$out = str_replace( '\"', '"', $out ); /* fix for " char */
+					
+					$out = str_replace( '%%meta_author%%', $item['from']['title'], $out );
+					$out = str_replace( '%%meta_avatar%%', $item['from']['photo'], $out );
+					$out = str_replace( '%%feed_network%%', $social_network_title, $out );
+					$out = str_replace( '%%class%%', $class, $out );
+					$out = str_replace( '%%item_text%%', $item['content'], $out );
+					$out = str_replace( '%%meta_date%%', $item['date'], $out );
+					$out = str_replace( '%%meta_time%%', $item['time'], $out );
+					$out = str_replace( '%%item_url%%', $item['url'], $out );
+					$out = str_replace( '%%str_readmore%%', __( 'read more...', 'ls_social_feed' ), $out );
+					$out = str_replace( '%%att_type%%', $item['attachment']['type'], $out );
+					$out = str_replace( '%%att_image%%', $item['attachment']['image'], $out );
+					
+					if ($social_network == 'mixed') {
+							$out = str_replace( '%%feed_author%%', $data['user'][$item['_type']]['title'], $out );
+							$out = str_replace( '%%feed_avatar%%', $data['user'][$item['_type']]['photo'], $out );
+							$out = str_replace( '%%feed_info%%', $data['user'][$item['_type']]['slogan'], $out );
+					}
+					else {
+							$out = str_replace( '%%feed_author%%', $data['user']['title'], $out );
+							$out = str_replace( '%%feed_avatar%%', $data['user']['photo'], $out );
+							$out = str_replace( '%%feed_info%%', $data['user']['slogan'], $out );
+					}
+					
+					ob_start(); print_r( $item ); $debug = ob_get_clean();
+					$out = str_replace( '%%debug%%', $debug, $out );
+					
+					// ===== regex - shortcodes =====
+					// [isset %%variable%%]%%value%%[/isset]
+					while( 1 == 1 ) {
+						preg_match_all('~\[isset([^\[\]]*)]([^\[\]]+)\[/isset]~', $out, $result);  
+						$replace = ''; $rule = trim( $result[1][0] );
+						if( !empty( $rule ) ) $replace = $result[2][0];
+						$out = str_replace( $result[0][0], $replace, $out );
+						if( empty( $result[0] ) ) break;
+					}
+					$out = str_replace( '[isset ][/isset]', '', $out ); // cleanup
+					// -end- [isset %%variable%%]%value%[/isset]
+					
+					// [isempty %%variable%%]%%value%%[/isset]
+					while( 1 == 1 ) {
+						preg_match_all('~\[isempty([^\[\]]*)]([^\[\]]+)\[/isempty]~', $out, $result);  
+						$replace = ''; $rule = trim( $result[1][0] );
+						if( empty( $rule ) ) $replace = $result[2][0];
+						$out = str_replace( $result[0][0], $replace, $out );
+						if( empty( $result[0] ) ) break;
+					}
+					$out = str_replace( '[isset ][/isset]', '', $out ); // cleanup
+					// -end- [isempty %%variable%%]%value%[/isset]
+					
+					// [truncate %chars%]%value%[/isset]
+					while( 1 == 1 ) {
+						preg_match_all('~\[truncate([^\[\]]*)]([^\[\]]+)\[/truncate]~', $out, $result);  
+						$replace = '';
+						$chars = trim( $result[1][0] ); if ( $chars < 1 ) $chars = 140;
+						
+						$replace = $this->textTruncate( $result[2][0], $chars, $break=" ", $pad="..." );
+						$out = str_replace( $result[0][0], $replace, $out );
+						if( empty( $result[0] ) ) break;
+					}
+					// -end- [truncate %chars%]%value%[/isset]
+					
+					$html .= $out;
+				} /* empty content check */
 			}
 		}
 		return $html;
